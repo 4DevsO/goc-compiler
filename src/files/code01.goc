@@ -1,4 +1,4 @@
-import 'stdio';
+import 'io';
 
 func test(a: int, b: float) (int) {
   let x = 9;
