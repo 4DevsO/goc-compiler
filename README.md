@@ -74,7 +74,7 @@ while (condicao) {
 Ou com o `For`
 
 ```js
-for x in 9 do x++ {
+for (let x = 0; x < 9; x++) {
   // Faça
 }
 ```
