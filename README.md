@@ -88,7 +88,7 @@ Você pode utilizar os seguintes operadores:
 | `+`      | Soma          |
 | `-`      | Subtração     |
 | `*`      | Multiplicação |
-| `**`     | Potênciação   |
+| `**`     | Potenciação   |
 | `/`      | Divisão       |
 | `%`      | Módulo        |
 
@@ -96,17 +96,17 @@ Você pode utilizar os seguintes operadores:
 
 Você pode utilizar os seguintes operadores:
 
-| Operador | Explicação     |
-| -------- | -------------- |
-| `!`      | Negação        |
-| `&&`     | E              |
-| `||`     | Ou             |
-| `<`      | Menor          |
-| `<=`     | Menor ou Igual |
-| `>`      | Maior          |
-| `>=`     | Maior ou Igual |
-| `!=`     | Diferente      |
-| `==`     | Igual          |
+| Operador                  | Explicação     |
+| ------------------------- | -------------- |
+| `!`                       | Negação        |
+| `&&`                      | E              |
+| <code>&#124;&#124;</code> | Ou             |
+| `<`                       | Menor          |
+| `<=`                      | Menor ou Igual |
+| `>`                       | Maior          |
+| `>=`                      | Maior ou Igual |
+| `!=`                      | Diferente      |
+| `==`                      | Igual          |
 
 ## Input / Output
 
