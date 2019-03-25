@@ -35,11 +35,15 @@ TK_GREATER_THAN               ">"
 TK_GREATER_EQUAL_THAN         ">="
 TK_NOT_EQUAL                  "!="
 TK_EQUAL                      "=="
+TK_INCREMENT                  "++"
+TK_DECREMENT                  "--"
 TK_ATRIBUTION                 "="
 TK_PLUS                       "+"
 TK_MINUS                      "-"
 TK_TIMES                      "*"
+TK_POW                        "**"
 TK_DIVIDED                    "/"
+TK_MOD                        "%"
 TK_NOT                        "!"
 TK_AND                        "&&"
 TK_OR                         "||"
@@ -48,6 +52,7 @@ TK_ELSE                       "else"
 TK_WHILE                      "while"
 TK_FOR                        "for"
 TK_IN                         "in"
+TK_DO                         "do"
 TK_RETURN                     "ret"
 TK_PRINT                      "print"
 TK_INPUT                      "input"
@@ -83,11 +88,15 @@ BLANK_SPACE                   [ \r\n\t]
 {TK_GREATER_EQUAL_THAN} formatToken("TK_GREATER_EQUAL_THAN");
 {TK_NOT_EQUAL} formatToken("TK_NOT_EQUAL");
 {TK_EQUAL} formatToken("TK_EQUAL");
+{TK_INCREMENT} formatToken("TK_INCREMENT");
+{TK_DECREMENT} formatToken("TK_DECREMENT");
 {TK_ATRIBUTION} formatToken("TK_ATRIBUTION");
 {TK_PLUS} formatToken("TK_PLUS");
 {TK_MINUS} formatToken("TK_MINUS");
 {TK_TIMES} formatToken("TK_TIMES");
+{TK_POW} formatToken("TK_POW");
 {TK_DIVIDED} formatToken("TK_DIVIDED");
+{TK_MOD} formatToken("TK_MOD");
 {TK_NOT} formatToken("TK_NOT");
 {TK_AND} formatToken("TK_AND");
 {TK_OR} formatToken("TK_OR");
@@ -96,6 +105,7 @@ BLANK_SPACE                   [ \r\n\t]
 {TK_WHILE} formatToken("TK_WHILE");
 {TK_FOR} formatToken("TK_FOR");
 {TK_IN} formatToken("TK_IN");
+{TK_DO} formatToken("TK_DO");
 {TK_RETURN} formatToken("TK_RETURN");
 {TK_PRINT} formatToken("TK_PRINT");
 {TK_INPUT} formatToken("TK_INPUT");
