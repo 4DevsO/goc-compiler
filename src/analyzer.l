@@ -102,8 +102,6 @@ BLANK_SPACE                   [ \r\n\t]
 {TK_ELSE} formatToken("TK_ELSE");
 {TK_WHILE} formatToken("TK_WHILE");
 {TK_FOR} formatToken("TK_FOR");
-{TK_IN} formatToken("TK_IN");
-{TK_DO} formatToken("TK_DO");
 {TK_RETURN} formatToken("TK_RETURN");
 {TK_PRINT} formatToken("TK_PRINT");
 {TK_INPUT} formatToken("TK_INPUT");
