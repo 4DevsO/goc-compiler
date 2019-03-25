@@ -1,0 +1,14 @@
+import 'stdio';
+
+func test(a: int, b: float) (int) {
+  let x = 9;
+  let z = <float> (x + a) * b;
+
+  if (x > 9) {
+    print('X é maior que 9 > ${z}');
+  } else {
+    print('X é menor ou igual a 9 > ${z}');
+  }
+
+  ret x;
+}
