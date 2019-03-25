@@ -7,7 +7,7 @@
 ## Hello World
 
 ```py
-print("Hello World!");
+print("Olá Mundo!");
 ```
 
 ## Tipos
@@ -17,13 +17,13 @@ Os tipos de dados que você pode utilizar são `int`, `double`, `string` e `bool
 ## Comentários
 
 ```js
-// You can comment like that
+// Você pode comentar assim
 ```
 
 ## Declarando Variáveis
 
 ```js
-// Homitindo o tipo da variável
+// Omitindo o tipo da variável
 
 let x = 9; // Int
 let y = 9.0; // Float
@@ -67,7 +67,7 @@ if (condicao) {
 
 ```js
 while (condicao) {
-  // Faca
+  // Faça
 }
 ```
 
@@ -85,7 +85,7 @@ Você pode utilizar os seguintes operadores:
 
 | Operador | Explicação    |
 | -------- | ------------- |
-| `+`      | Soma          |
+| `+`      | Adição        |
 | `-`      | Subtração     |
 | `*`      | Multiplicação |
 | `**`     | Potenciação   |
