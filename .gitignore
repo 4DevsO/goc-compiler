@@ -1,0 +1,8 @@
+# Ignoring Files Without Extensions
+*
+!/**/
+!*.*
+!Makefile
+
+# VS Code Settings
+.vscode
