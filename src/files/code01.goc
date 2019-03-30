@@ -1,14 +1,21 @@
-import 'io';
-
-func test(a: int, b: float) (int) {
-  let x = 9;
-  let z = <float> (x + a) * b;
-
-  if (x > 9) {
-    print('X é maior que 9 > ${z}');
-  } else {
-    print('X é menor ou igual a 9 > ${z}');
+// Return if a is greater than b
+func gt(a: int, b: int) (bool) {
+  if (a < b) {
+    ret true;
   }
 
-  ret x;
+  ret false;
 }
+
+let x = 9;
+let y: int = 10;
+
+let c = gt(x, y);
+
+while (!c) {
+  x += 1
+  c = gt(x, y)
+}
+
+
+print("${c}")
