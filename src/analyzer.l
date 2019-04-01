@@ -17,7 +17,8 @@ TK_DECLARATION_STRING         "string"
 TK_DECLARATION_BOOL           "bool"
 TK_INT                        [0-9]+
 TK_FLOAT                      [0-9]+.[0-9]+
-TK_STRING                     \'(.*)\'
+TK_STRING                     \"(\\.|[^"\\])*\"
+TK_TEMPLATE_STRING            (\"|\').*\$\{[a-zA-Z]+(\+|\-|\=|\*|\/)*[0-9]*\}.*(\"|\')
 TK_BOOL                       "true"|"false"
 TK_NULL                       "null"
 TK_COMMA                      ","
@@ -68,6 +69,7 @@ BLANK_SPACE                   [ \r\n\t]
 {TK_DECLARATION_BOOL} formatToken("TK_DECLARATION_BOOL");
 {TK_INT} formatToken("TK_INT");
 {TK_FLOAT} formatToken("TK_FLOAT");
+{TK_TEMPLATE_STRING} formatToken("TK_TEMPLATE_STRING");
 {TK_STRING} formatToken("TK_STRING");
 {TK_BOOL} formatToken("TK_BOOL");
 {TK_NULL} formatToken("TK_NULL");
@@ -117,6 +119,6 @@ int main() {
     printf("[");
     yylex();
     printf("]\n");
-    
+
     return 0;
 }
