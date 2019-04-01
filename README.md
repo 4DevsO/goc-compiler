@@ -115,3 +115,12 @@ let x = input("Digite algo > ");
 
 print(x);
 ```
+
+## Template String
+
+```js
+let h = "Hello"
+let w = "World"
+
+print("${h} ${w}!") // Output: "Hello World!"
+```
