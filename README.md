@@ -1,5 +1,7 @@
 # Analisador Léxico - CET058
 
+O Analise Léxica, é o processo de converter uma sequência de caracteres em uma sequência de tokens.
+
 ## [Wiki do projeto da matéria](https://github.com/cet058/2019.1/wiki#detalhes-do-projeto)
 
 # Definições da Linguagem
