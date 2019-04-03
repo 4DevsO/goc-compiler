@@ -3,6 +3,6 @@
 !/**/
 !*.*
 !Makefile
-
+*.json
 # VS Code Settings
 .vscode
