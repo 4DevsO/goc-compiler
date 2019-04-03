@@ -1,1 +1,1 @@
-print("Alow meu ${c}!")
+print('Alow meu ${c}!')
