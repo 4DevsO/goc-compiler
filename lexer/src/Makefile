@@ -1,5 +1,5 @@
 # Project Name
-PROJ_NAME=analyzer
+PROJ_NAME=lexer
 
 # Source Codes
 LEX_SOURCE=$(wildcard *.l)

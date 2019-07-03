@@ -4,6 +4,13 @@ O Analise Léxica, é o processo de converter uma sequência de caracteres em um
 
 ## [Wiki do projeto da matéria](https://github.com/cet058/2019.1/wiki#detalhes-do-projeto)
 
+# Utilizando o Analisador
+
+```sh
+$ make
+$ ./lexer < files/code01.goc > output.json
+```
+
 # Definições da Linguagem
 
 ## Hello World
@@ -121,8 +128,8 @@ print(x);
 ## Template String
 
 ```js
-let h = "Hello"
-let w = "World"
+let h = "Hello";
+let w = "World";
 
-print("${h} ${w}!") // Output: "Hello World!"
+print("${h} ${w}!"); // Output: "Hello World!"
 ```
