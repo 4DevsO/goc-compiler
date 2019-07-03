@@ -2,10 +2,10 @@
 PROJ_NAME=lexer
 
 # Source Codes
-LEX_SOURCE=$(wildcard *.l)
+LEX_SOURCE=$(wildcard src/*.l)
 
 # Input Files
-IN_FILES=$(wildcard *.in)
+IN_FILES=$(wildcard src/*.in)
 
 # Compilers
 CC=gcc
