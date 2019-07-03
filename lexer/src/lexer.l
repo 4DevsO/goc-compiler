@@ -58,6 +58,7 @@ TK_PRINT                      "print"
 TK_INPUT                      "input"
 TK_IDENTIFIER                 [_a-zA-Z][_a-zA-Z0-9]*
 BLANK_SPACE                   [ \r\n\t]
+INVALID_TOKEN                 .
 
 %%
 
@@ -111,6 +112,7 @@ BLANK_SPACE                   [ \r\n\t]
 {TK_INPUT}                    formatToken("TK_INPUT");
 {TK_IDENTIFIER}               formatToken("TK_IDENTIFIER");
 {BLANK_SPACE}                 formatToken("BLANK_SPACE");
+{INVALID_TOKEN}               formatToken("INVALID_TOKEN");
 
 <<EOF>>                       printf("{\"type\": \"TK_EOF\"}\n"); return 0;
 
