@@ -103,29 +103,19 @@ calc:
 | calc expr TK_EOL { imprimir_arvore($2); printf("\n"); }
 ;
 
-expr: term
-| term TK_PLUS term { $$ = novo_no("TK_PLUS", NULL, $1, $3); }
-| term TK_MINUS term { $$ = novo_no("TK_MINUS", NULL, $1, $3); }
-| term BLANK_SPACE TK_PLUS term { $$ = novo_no("TK_PLUS", NULL, $1, $4); }
-| term BLANK_SPACE TK_MINUS term { $$ = novo_no("TK_MINUS", NULL, $1, $4); }
-| term TK_PLUS BLANK_SPACE term { $$ = novo_no("TK_PLUS", NULL, $1, $4); }
-| term TK_MINUS BLANK_SPACE term { $$ = novo_no("TK_MINUS", NULL, $1, $4); }
-| term BLANK_SPACE TK_PLUS BLANK_SPACE term { $$ = novo_no("TK_PLUS", NULL, $1, $5); }
-| term BLANK_SPACE TK_MINUS BLANK_SPACE term { $$ = novo_no("TK_MINUS", NULL, $1, $5); }
-;
-
-term: factor
-| factor TK_TIMES factor { $$ = novo_no("TK_TIMES", NULL, $1, $3); }
-| factor TK_DIVIDED factor { $$ = novo_no("TK_DIVIDED", NULL, $1, $3); }
-| factor BLANK_SPACE TK_TIMES factor { $$ = novo_no("TK_TIMES", NULL, $1, $4); }
-| factor BLANK_SPACE TK_DIVIDED factor { $$ = novo_no("TK_DIVIDED", NULL, $1, $4); }
-| factor TK_TIMES BLANK_SPACE factor { $$ = novo_no("TK_TIMES", NULL, $1, $4); }
-| factor TK_DIVIDED BLANK_SPACE factor { $$ = novo_no("TK_DIVIDED", NULL, $1, $4); }
-| factor BLANK_SPACE TK_TIMES BLANK_SPACE factor { $$ = novo_no("TK_TIMES", NULL, $1, $5); }
-| factor BLANK_SPACE TK_DIVIDED BLANK_SPACE factor { $$ = novo_no("TK_DIVIDED", NULL, $1, $5); }
+expr:
+| factor
+| expr TK_PLUS factor { $$ = novo_no("TK_PLUS", NULL, $1, $3); }
+| expr TK_MINUS factor { $$ = novo_no("TK_MINUS", NULL, $1, $3); }
 ;
 
 factor:
+| term
+| factor TK_TIMES term { $$ = novo_no("TK_TIMES", NULL, $1, $3); }
+| factor TK_DIVIDED term { $$ = novo_no("TK_DIVIDED", NULL, $1, $3); }
+;
+
+term:
 | TK_INT { $$ = novo_no("TK_INT", $1, NULL, NULL); }
 | TK_FLOAT { $$ = novo_no("TK_FLOAT", $1, NULL, NULL); }
 ;
