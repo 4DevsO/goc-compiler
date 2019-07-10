@@ -3,6 +3,13 @@
 !/**/
 !*.*
 !Makefile
+
+# Used outputs
 *.json
+
 # VS Code Settings
 .vscode
+
+# Build process files
+*.yy.c
+*.tab.*
