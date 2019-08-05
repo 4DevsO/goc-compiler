@@ -155,6 +155,7 @@ void imprimir_arvore(No* raiz) {
     imprimir_arvore(raiz->esquerda);
     printf(")");
     
+    free(raiz);
 
 }
 
