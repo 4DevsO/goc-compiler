@@ -107,6 +107,16 @@ expr:
 | factor
 | expr TK_PLUS factor { $$ = novo_no("TK_PLUS", NULL, $1, $3); }
 | expr TK_MINUS factor { $$ = novo_no("TK_MINUS", NULL, $1, $3); }
+| expr TK_POW factor { $$ = novo_no("TK_POW", NULL, $1, $3); }
+| expr TK_MOD factor { $$ = novo_no("TK_MOD", NULL, $1, $3); }
+| expr TK_AND factor { $$ = novo_no("TK_AND", NULL, $1, $3); }
+| expr TK_OR factor { $$ = novo_no("TK_OR", NULL, $1, $3); }
+| expr TK_LESS_THAN factor { $$ = novo_no("TK_LESS_THAN", NULL, $1, $3); }
+| expr TK_LESS_EQUAL_THAN factor { $$ = novo_no("TK_LESS_EQUAL_THAN", NULL, $1, $3); }
+| expr TK_GREATER_THAN factor { $$ = novo_no("TK_GREATER_THAN", NULL, $1, $3); }
+| expr TK_GREATER_EQUAL_THAN factor { $$ = novo_no("TK_GREATER_EQUAL_THAN", NULL, $1, $3); }
+| expr TK_NOT_EQUAL factor { $$ = novo_no("TK_NOT_EQUAL", NULL, $1, $3); }
+| expr TK_EQUAL factor { $$ = novo_no("TK_EQUAL", NULL, $1, $3); }
 ;
 
 factor:
