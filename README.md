@@ -2,10 +2,12 @@
 
 ## [Wiki do projeto da matéria](https://github.com/cet058/2019.1/wiki#detalhes-do-projeto)
 
+## [Visualizador de Árvore Sintática](http://mshang.ca/syntree/)
+
 # Roadmap
 
 - [x] Analisador Léxico
-- [ ] Analisador Sintático
+- [x] Analisador Sintático
 - [ ] Analisador Semantico
 
 # Utilizando o Parser
