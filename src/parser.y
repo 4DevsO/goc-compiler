@@ -11,21 +11,24 @@
 typedef struct No {
     char type[50];
     char token[50];
-    struct No* direita;
-    struct No* esquerda;
+    int siblings_num;
+    struct No** siblings;
 } No;
 
 
 No* allocar_no();
-void liberar_no(void* no);
+void liberar_no(No* no);
 void imprimir_arvore(No* raiz);
-No* novo_no(char[50], char[50], No*, No*);
+No* novo_no(char[50], No**, int);
+No* cria_no_exp(char[50], char[50], No*, No*);
 
 %}
 
 /* Declaração de Tokens no formato %token NOME_DO_TOKEN */
 %union 
 {
+    int number;
+    int siblings_num;
     char simbolo[50];
     struct No* no;
 }
@@ -105,70 +108,74 @@ calc:
 
 expr:
 | factor
-| expr TK_PLUS factor { $$ = novo_no("TK_PLUS", NULL, $1, $3); }
-| expr TK_MINUS factor { $$ = novo_no("TK_MINUS", NULL, $1, $3); }
-| expr TK_LESS_THAN factor { $$ = novo_no("TK_LESS_THAN", NULL, $1, $3); }
-| expr TK_LESS_EQUAL_THAN factor { $$ = novo_no("TK_LESS_EQUAL_THAN", NULL, $1, $3); }
-| expr TK_GREATER_THAN factor { $$ = novo_no("TK_GREATER_THAN", NULL, $1, $3); }
-| expr TK_GREATER_EQUAL_THAN factor { $$ = novo_no("TK_GREATER_EQUAL_THAN", NULL, $1, $3); }
-| expr TK_EQUAL factor { $$ = novo_no("TK_EQUAL", NULL, $1, $3); }
-| expr TK_NOT_EQUAL factor { $$ = novo_no("TK_NOT_EQUAL", NULL, $1, $3); }
-| expr TK_AND factor { $$ = novo_no("TK_AND", NULL, $1, $3); }
-| expr TK_OR factor { $$ = novo_no("TK_OR", NULL, $1, $3); }
+| expr TK_PLUS factor { $$ = cria_no_exp("TK-PLUS", "EXP", $1, $3); }
+| expr TK_MINUS factor { $$ = cria_no_exp("TK-MINUS", "EXP", $1, $3); }
+| expr TK_LESS_THAN factor { $$ = cria_no_exp("TK-LESS_THAN", "EXP", $1, $3); }
+| expr TK_LESS_EQUAL_THAN factor { $$ = cria_no_exp("TK-LESS_EQUAL_THAN", "EXP", $1, $3); }
+| expr TK_GREATER_THAN factor { $$ = cria_no_exp("TK-GREATER_THAN", "EXP", $1, $3); }
+| expr TK_GREATER_EQUAL_THAN factor { $$ = cria_no_exp("TK-GREATER_EQUAL_THAN", "EXP", $1, $3); }
+| expr TK_EQUAL factor { $$ = cria_no_exp("TK-EQUAL", "EXP", $1, $3); }
+| expr TK_NOT_EQUAL factor { $$ = cria_no_exp("TK-NOT_EQUAL", "EXP", $1, $3); }
+| expr TK_AND factor { $$ = cria_no_exp("TK-AND", "EXP", $1, $3); }
+| expr TK_OR factor { $$ = cria_no_exp("TK-OR", "EXP", $1, $3); }
 ;
 
 factor:
 | term
-| factor TK_TIMES term { $$ = novo_no("TK_TIMES", NULL, $1, $3); }
-| factor TK_DIVIDED term { $$ = novo_no("TK_DIVIDED", NULL, $1, $3); }
-| factor TK_MOD term { $$ = novo_no("TK_MOD", NULL, $1, $3); }
-| factor TK_POW term { $$ = novo_no("TK_POW", NULL, $1, $3); }
+| factor TK_TIMES term { $$ = cria_no_exp("TK-TIMES", "FACTOR", $1, $3); }
+| factor TK_DIVIDED term { $$ = cria_no_exp("TK-DIVIDED", "FACTOR", $1, $3); }
+| factor TK_MOD term { $$ = cria_no_exp("TK-MOD", "FACTOR", $1, $3); }
+| factor TK_POW term { $$ = cria_no_exp("TK-POW", "FACTOR", $1, $3); }
 ;
 
-term:
-| TK_INT { $$ = novo_no("TK_INT", $1, NULL, NULL); }
-| TK_FLOAT { $$ = novo_no("TK_FLOAT", $1, NULL, NULL); }
+term: 
+|    TK_INT {
+            No** siblings = (No**) malloc(sizeof(No*));
+            siblings[0] = novo_no($1,siblings,0);
+            $$ = novo_no("TK-INT", siblings, 1);
+        }
+|    TK_FLOAT {
+            No** siblings = (No**) malloc(sizeof(No*));
+            siblings[0] = novo_no($1,siblings,0);
+            $$ = novo_no("TK-FLOAT", siblings, 1);
+        }
 ;
-
 %%
 
-No* allocar_no() {
-    return (No*) malloc(sizeof(No));
+No* allocar_no(int siblings_num) {
+    return (No*) malloc(sizeof(No)* siblings_num);
 }
 
-void liberar_no(void* no) {
+void liberar_no(No* no) {
     free(no);
 }
 
-No* novo_no(char type[50], char token[50], No* direita, No* esquerda) {
-   No* no = allocar_no();
-   snprintf(no->type, 50, "%s", type);
-   snprintf(no->token, 50, "%s", token);
-   no->direita = direita;
-   no->esquerda = esquerda;
-
-   return no;
+No* novo_no(char token[50], No** siblings, int siblings_num) {
+    No* no = allocar_no(siblings_num);
+    snprintf(no->token, 50, "%s", token);
+    no->siblings_num= siblings_num;
+    no->siblings = siblings;
+    return no;
 }
 
 void imprimir_arvore(No* raiz) {
-    
-    if(raiz == NULL) {
-        return;
+    int i = 0;
+    printf("[%s ", raiz->token);
+    while (i < raiz->siblings_num)
+    {  
+        imprimir_arvore(raiz->siblings[i]);
+        i++;
     }
-    printf("(");
-    imprimir_arvore(raiz->direita);
-    if(strcmp(raiz->token, "(null)") != 0) {
-        printf("%s, %s", raiz->type, raiz->token);
-    } else {
-        printf("%s", raiz->type);
-    }
-    imprimir_arvore(raiz->esquerda);
-    printf(")");
-    
-    free(raiz);
-
+    printf("]");
 }
 
+No* cria_no_exp(char token[50], char type[50], No* sibling_1, No* sibling_2) {
+    No** siblings = (No**) malloc(sizeof(No*)*3);
+    siblings[0] = sibling_1;
+    siblings[1] = novo_no(token, NULL, 0);
+    siblings[2] = sibling_2;
+    return novo_no(type, siblings, 3);
+}
 
 int main(int argc, char** argv) {
     yyparse();
