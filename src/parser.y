@@ -27,7 +27,7 @@ void yyerror(char* s);
     struct node_t *node;
 }
 
-%type <node> exp  // Declare the type of exp
+%type <node> exp
 %type <number> NUMBER
 %type <node> TERM
 %type <string> IDENT PRINT
@@ -39,7 +39,6 @@ list: list statement
 
 statement: exp
     | PRINT ABRE_PARENTESES IDENT FECHA_PARENTESES TERM {
-        printf("Printing variable '%s'\n", $3);
         node_t* p = get_node(head, $3);
         if (p != NULL) {
             printf("%s = %d\n", $3, p->value);
@@ -51,7 +50,6 @@ statement: exp
 
 exp: IDENT IGUAL NUMBER TERM {
         head = insert(head, $1, $3);
-        // show(head);
     }
     | IDENT IGUAL IDENT MAIS NUMBER TERM {
         node_t* p = get_node(head, $1);
@@ -60,7 +58,6 @@ exp: IDENT IGUAL NUMBER TERM {
         } else {
             fprintf(stderr, "Variable not declared: %s\n", $1);
         }
-        show(head);
     }
     | IDENT IGUAL NUMBER MAIS NUMBER TERM {
         node_t* p = get_node(head, $1);
@@ -69,7 +66,6 @@ exp: IDENT IGUAL NUMBER TERM {
         } else {
             head = insert(head, $1, $3 + $5);
         }
-        show(head);
     }
     ;
 %%
