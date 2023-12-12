@@ -19,7 +19,7 @@ int yylex(void);
 void yyerror(char* s);
 %}
 
-%token NUMBER IDENT MAIS MENOS IGUAL TERM PRINT ABRE_PARENTESES FECHA_PARENTESES
+%token NUMBER IDENT MAIS IGUAL TERM PRINT ABRE_PARENTESES FECHA_PARENTESES
 %union
 {
     int number;
@@ -52,6 +52,16 @@ statement: exp
 exp: IDENT IGUAL NUMBER TERM {
         head = insert(head, $1, $3);
         // show(head);
+    }
+    | IDENT IGUAL NUMBER MAIS NUMBER TERM {
+        node_t *p = get_node(head, $1);
+        if (p != NULL) {
+            p->value = $3 + $5;
+        } else {
+            //SHOULD INSERT THE NEW VARIABLE WITH THE SUM
+            head = insert(head, $1, $3 + $5);
+        }
+        show(head);
     }
     ;
 %%
