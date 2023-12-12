@@ -13,7 +13,7 @@ node_t* head = NULL;
 
 node_t* insert(node_t* l, char* lex, int value);
 node_t* show(node_t* l);
-node_t* get_node (node_t* l, char *lex);
+node_t* get_node(node_t* l, char* lex);
 
 int yylex(void);
 void yyerror(char* s);
@@ -53,12 +53,20 @@ exp: IDENT IGUAL NUMBER TERM {
         head = insert(head, $1, $3);
         // show(head);
     }
+    | IDENT IGUAL IDENT MAIS NUMBER TERM {
+        node_t* p = get_node(head, $1);
+        if (p != NULL) {
+            p->value = get_node(head, $3)->value + $5;
+        } else {
+            fprintf(stderr, "Variable not declared: %s\n", $1);
+        }
+        show(head);
+    }
     | IDENT IGUAL NUMBER MAIS NUMBER TERM {
-        node_t *p = get_node(head, $1);
+        node_t* p = get_node(head, $1);
         if (p != NULL) {
             p->value = $3 + $5;
         } else {
-            //SHOULD INSERT THE NEW VARIABLE WITH THE SUM
             head = insert(head, $1, $3 + $5);
         }
         show(head);
@@ -66,31 +74,32 @@ exp: IDENT IGUAL NUMBER TERM {
     ;
 %%
 
-void yyerror(char *s) {
+void yyerror(char* s) {
     fprintf(stderr, "erro: %s\n", s);
 }
 
-node_t* insert (node_t* l, char *lex, int value){
-    node_t* novo = (node_t*) malloc(sizeof(node_t));
+node_t* insert(node_t* l, char* lex, int value) {
+    node_t* novo = (node_t*)malloc(sizeof(node_t));
     strcpy(novo->id, lex);
     novo->value = value;
-    novo->next=l;
-    /* printf("%s %d \n", novo->id, novo->value); */
+    novo->next = l;
     return novo;
 }
 
-node_t* show (node_t* l){
+node_t* show(node_t* l) {
     node_t* p;
     for (p = l; p != NULL; p = p->next)
-    printf("%s %d \n", p->id, p->value);
-};
+        printf("%s %d \n", p->id, p->value);
+}
 
-node_t* get_node (node_t* l, char *lex) {
-	node_t* p;
-	for(p = l; p != NULL; p = p->next){
-		if (strcmp(p->id,lex) == 0) { return p; }
-	}
-	return NULL;
+node_t* get_node(node_t* l, char* lex) {
+    node_t* p;
+    for (p = l; p != NULL; p = p->next) {
+        if (strcmp(p->id, lex) == 0) {
+            return p;
+        }
+    }
+    return NULL;
 }
 
 int main(int argc, char** argv) {
