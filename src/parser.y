@@ -9,17 +9,17 @@ typedef struct node {
     struct node *next;
 } node_t;
 
-node_t *head = NULL;
+node_t* head = NULL;
 
 node_t* insert(node_t* l, char* lex, int value);
 node_t* show(node_t* l);
+node_t* get_node (node_t* l, char *lex);
 
 int yylex(void);
 void yyerror(char* s);
 %}
 
-%token NUMBER IDENT MAIS MENOS IGUAL TERM
-%left MENOS
+%token NUMBER IDENT MAIS MENOS IGUAL TERM PRINT ABRE_PARENTESES FECHA_PARENTESES
 %union
 {
     int number;
@@ -30,17 +30,28 @@ void yyerror(char* s);
 %type <node> exp  // Declare the type of exp
 %type <number> NUMBER
 %type <node> TERM
-%type <string> IDENT
+%type <string> IDENT PRINT
 
 %%
-
-list: list exp
+list: list statement
     |
+    ;
+
+statement: exp
+    | PRINT ABRE_PARENTESES IDENT FECHA_PARENTESES TERM {
+        printf("Printing variable '%s'\n", $3);
+        node_t* p = get_node(head, $3);
+        if (p != NULL) {
+            printf("%s = %d\n", $3, p->value);
+        } else {
+            fprintf(stderr, "Variable not declared: %s\n", $3);
+        }
+    }
     ;
 
 exp: IDENT IGUAL NUMBER TERM {
         head = insert(head, $1, $3);
-        show(head);
+        // show(head);
     }
     ;
 %%
@@ -50,10 +61,11 @@ void yyerror(char *s) {
 }
 
 node_t* insert (node_t* l, char *lex, int value){
-    node_t* novo = (node_t*) malloc(sizeof(l));
+    node_t* novo = (node_t*) malloc(sizeof(node_t));
     strcpy(novo->id, lex);
     novo->value = value;
     novo->next=l;
+    /* printf("%s %d \n", novo->id, novo->value); */
     return novo;
 }
 
@@ -62,6 +74,14 @@ node_t* show (node_t* l){
     for (p = l; p != NULL; p = p->next)
     printf("%s %d \n", p->id, p->value);
 };
+
+node_t* get_node (node_t* l, char *lex) {
+	node_t* p;
+	for(p = l; p != NULL; p = p->next){
+		if (strcmp(p->id,lex) == 0) { return p; }
+	}
+	return NULL;
+}
 
 int main(int argc, char** argv) {
     yyparse();
